@@ -31,7 +31,12 @@ export class FetchDataComponent {
       if(id === null){
           this.employees = await this.employeeService.listEmployees();
       } else {
-        this.employees = await this.employeeService.getemployee(id);
+        const employee =  await this.employeeService.getemployee(id);
+        if(employee){
+          this.employees.push(employee);
+        } else {
+          alert('No existe el Empleado con Id:' + id);    
+        }
       }
     } catch(err){
       alert('Ocurrio un error inesperado');

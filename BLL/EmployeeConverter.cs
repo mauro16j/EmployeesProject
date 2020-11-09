@@ -11,6 +11,12 @@ namespace BLL
 {
     public class EmployeeConverter : AbstractJsonConverter<Employee>
     {
+        /// <summary>
+        /// Crea el objeto Employee dependiendo de su contractType utiliza el Factory
+        /// </summary>
+        /// <param name="objectType"></param>
+        /// <param name="jObject">Objeto Jobject</param>
+        /// <returns>elemento Employee</returns>
         protected override Employee Create(Type objectType, JObject jObject)
         {
             int id = 0;

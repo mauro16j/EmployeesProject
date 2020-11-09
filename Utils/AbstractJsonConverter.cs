@@ -10,11 +10,24 @@ namespace Utils
     {
         protected abstract T Create(Type objectType, JObject jObject);
 
+        /// <summary>
+        /// Metodo que puede determina si el objeto se puede convertir al tipo determinado
+        /// </summary>
+        /// <param name="objectType"></param>
+        /// <returns></returns>
         public override bool CanConvert(Type objectType)
         {
             return typeof(T).IsAssignableFrom(objectType);
         }
 
+        /// <summary>
+        /// Metodo para leer Json
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="objectType"></param>
+        /// <param name="existingValue"></param>
+        /// <param name="serializer"></param>
+        /// <returns></returns>
         public override object ReadJson(
             JsonReader reader,
             Type objectType,
@@ -37,6 +50,13 @@ namespace Utils
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Metodo que valida si existe un campo en JSON y devuelve su valor si existe
+        /// </summary>
+        /// <param name="jObject"></param>
+        /// <param name="name"></param>
+        /// <param name="type"></param>
+        /// <returns>elemento Diccionario con objeto JSON y campo</returns>
         protected static Dictionary<JObject, string> ValueFieldExists(
             JObject jObject,
             string name,

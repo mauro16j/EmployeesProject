@@ -29,6 +29,7 @@ namespace ProjectEmployees
         {
             //Inyeccion de dependencia de BLL
             services.AddScoped<IEmployeeBusiness, EmployeeBusiness>();
+            //Permite CORS
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -40,6 +41,7 @@ namespace ProjectEmployees
             {
                 app.UseDeveloperExceptionPage();
             }
+            //Habilita CORS para todos los metodos y origenes
             app.UseCors(
                     options => options.WithOrigins("*").AllowAnyMethod()
             );
