@@ -1,23 +1,44 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { EmployeeService } from '../shared/employee.service';
 
 @Component({
   selector: 'app-fetch-data',
   templateUrl: './fetch-data.component.html'
 })
 export class FetchDataComponent {
-  public forecasts: WeatherForecast[];
+  public formGroup: FormGroup;
+  public employees: any = [];
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'api/SampleData/WeatherForecasts').subscribe(result => {
-      this.forecasts = result;
-    }, error => console.error(error));
+  constructor( private formBuilder: FormBuilder,
+              private employeeService: EmployeeService ) { }
+
+  public ngOnInit() {
+    this.buildForm();
   }
+  private buildForm(){
+    this.formGroup = this.formBuilder.group({
+      idEmployee:[]
+    });
+  }
+
+  async onSubmit(){
+    try{
+      this.employees = [];
+      const id = this.formGroup.value.idEmployee;
+
+      if(id === null){
+          this.employees = await this.employeeService.listEmployees();
+      } else {
+        this.employees = await this.employeeService.getemployee(id);
+      }
+    } catch(err){
+      alert('Ocurrio un error inesperado');
+    }
+
+  }
+
+
 }
 
-interface WeatherForecast {
-  dateFormatted: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}

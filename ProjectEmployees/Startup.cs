@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BLL;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -28,7 +29,7 @@ namespace ProjectEmployees
         {
             //Inyeccion de dependencia de BLL
             services.AddScoped<IEmployeeBusiness, EmployeeBusiness>();
-
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -39,6 +40,9 @@ namespace ProjectEmployees
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(
+                    options => options.WithOrigins("*").AllowAnyMethod()
+            );
 
             app.UseMvc();
         }
