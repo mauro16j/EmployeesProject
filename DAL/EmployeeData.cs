@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace DAL
 {
@@ -13,7 +14,7 @@ namespace DAL
         /// Obtiene la lista total de empleados
         /// </summary>
         /// <returns>string de json con lista de empleados</returns>
-        public string ListEmployee()
+        public async Task<string> ListEmployee()
         {
             string retorno = string.Empty;
 
@@ -23,7 +24,7 @@ namespace DAL
             request.ContentType = "application/json";
             request.Accept = "application/json";
 
-            using (WebResponse response = request.GetResponse())
+            using (WebResponse response = await request.GetResponseAsync())
             {
                 using (Stream strReader = response.GetResponseStream())
                 {
@@ -36,5 +37,6 @@ namespace DAL
             }
 
         }
+
     }
 }

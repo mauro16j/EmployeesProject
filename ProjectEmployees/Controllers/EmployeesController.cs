@@ -19,11 +19,11 @@ namespace ProjectEmployees.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<List<Employee>> Get()
+        public async Task<ActionResult<List<Employee>>> Get()
         {
             try
             {
-                var lst_employees =_employee.ListEmployees();
+                var lst_employees = await _employee.ListEmployees();
                 return Ok(lst_employees);
             }
             catch
@@ -35,11 +35,11 @@ namespace ProjectEmployees.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<ActionResult<string>> Get(int id)
         {
             try
             {
-                var employee = _employee.GetEmployee(id);
+                var employee = await _employee.GetEmployee(id);
                 return Ok(employee);
             }
             catch

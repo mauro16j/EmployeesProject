@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Utils;
+using System.Threading.Tasks;
 
 namespace BLL
 {
@@ -16,10 +17,10 @@ namespace BLL
         /// Lista todos los empleados del API
         /// </summary>
         /// <returns>Lista de elementos tipo Employee</returns>
-        public List<Employee> ListEmployees()
+        public async Task<List<Employee>> ListEmployees()
         {
             EmployeeData dal = new EmployeeData();
-            string plainEmpleados = dal.ListEmployee();
+            string plainEmpleados = await dal.ListEmployee();
             List<Employee> lst_empleados = GetDeserializeObject(plainEmpleados);
             return lst_empleados;
         }
@@ -29,9 +30,9 @@ namespace BLL
         /// </summary>
         /// <param name="id">Id del empleado</param>
         /// <returns>elemento tipo Employee</returns>
-        public Employee GetEmployee(int id)
+        public async Task<Employee> GetEmployee(int id)
         {
-            Employee employee = ListEmployees().Where(x => x.id == id).FirstOrDefault();
+            Employee employee = (await ListEmployees()).Where(x => x.id == id).FirstOrDefault();
             return employee;
         }
 
