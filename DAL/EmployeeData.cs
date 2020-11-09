@@ -4,10 +4,15 @@ using System.Net;
 
 namespace DAL
 {
+    
     public class EmployeeData
     {
         private readonly string urlApi = "http://masglobaltestapi.azurewebsites.net";//System.Configuration.ConfigurationSettings.AppSettings["UrlApi"].ToString();
 
+        /// <summary>
+        /// Obtiene la lista total de empleados
+        /// </summary>
+        /// <returns>string de json con lista de empleados</returns>
         public string ListEmployee()
         {
             string retorno = string.Empty;
